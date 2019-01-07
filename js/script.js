@@ -17,7 +17,9 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 
-
+// List of all students
+const studentNodeList = document.querySelectorAll('li');
+const pageContainer = document.querySelector('.page');
 
 
 /*** 
@@ -42,9 +44,38 @@ FSJS project 2 - List Filter and Pagination
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
 ***/
+const appendPageLinks = () => {
+   const divContainer = createElementWithClass('div', 'pagination')
+   const ulContainer = document.createElement('ul');
+   const numOfPages = calculatePageNumbers(studentNodeList, 10);
 
+   for(let i = 1; i <= numOfPages; i++) {
+      createAndAppend('li', 'a', i, ulContainer)   
+   }
 
+   divContainer.appendChild(ulContainer);
+   return divContainer;
+}
 
+// The following function returns the number of pages. numPerPage is dynamic and can be changed according requirements
+const calculatePageNumbers = (nodeList, numPerPage) => Math.ceil(nodeList.length / numPerPage);
 
+// The following function will create two elements, add a given text to the second element, and append the elements as childs to a third element
+const createAndAppend = (createFirst, createSecond, secondTextContent, appendToElemend) => {
+   const first = document.createElement(createFirst);
+   const second = document.createElement(createSecond);
+   second.innerText = secondTextContent;
+   first.appendChild(second);
+   appendToElemend.appendChild(first); 
+}
+
+// The following function creates a given element with a className
+const createElementWithClass = (elementName, className) => {
+   const element = document.createElement(elementName);
+   element.className = className;
+   return element;
+}
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
+const pagination = appendPageLinks();
+pageContainer.appendChild(pagination);
