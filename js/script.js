@@ -70,6 +70,8 @@ const createAndAppend = (firstElement, secondElement, secondTextContent, secondH
    const second = document.createElement(secondElement);
    second.innerText = secondTextContent;
    second.href = secondHRef;
+   // The following line sets the page-button at initiation active, if the number is 1
+   if(secondTextContent === 1) second.className ='active';
    first.appendChild(second);
    appendToElemend.appendChild(first); 
 }
@@ -84,7 +86,7 @@ const createElementWithClass = (elementName, className) => {
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
 const pagination = appendPageLinks();
 pagination.addEventListener('click', event => {
-   const anchorList = document.querySelectorAll('a'); // => 'href=#' selector need to be added
+   const anchorList = document.querySelectorAll('a[href="#"]');
    for(let i = 0; i < anchorList.length; i++) {
       anchorList[i].className = '';
    }
