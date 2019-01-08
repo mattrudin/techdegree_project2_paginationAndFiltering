@@ -50,7 +50,7 @@ const appendPageLinks = () => {
    const numOfPages = calculatePageNumbers(studentNodeList, 10);
 
    for(let i = 1; i <= numOfPages; i++) {
-      createAndAppend('li', 'a', i, ulContainer)   
+      createAndAppend('li', 'a', i, '#', ulContainer)   
    }
 
    divContainer.appendChild(ulContainer);
@@ -60,11 +60,12 @@ const appendPageLinks = () => {
 // The following function returns the number of pages. numPerPage is dynamic and can be changed according requirements
 const calculatePageNumbers = (nodeList, numPerPage) => Math.ceil(nodeList.length / numPerPage);
 
-// The following function will create two elements, add a given text to the second element, and append the elements as childs to a third element
-const createAndAppend = (createFirst, createSecond, secondTextContent, appendToElemend) => {
-   const first = document.createElement(createFirst);
-   const second = document.createElement(createSecond);
+// The following function will create two elements, add a given text and href to the second element, and append the elements as childs to a third element
+const createAndAppend = (firstElement, secondElement, secondTextContent, secondHRef, appendToElemend) => {
+   const first = document.createElement(firstElement);
+   const second = document.createElement(secondElement);
    second.innerText = secondTextContent;
+   second.href = secondHRef;
    first.appendChild(second);
    appendToElemend.appendChild(first); 
 }
