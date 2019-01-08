@@ -5,21 +5,12 @@ FSJS project 2 - List Filter and Pagination
    
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
-
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
-   
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
-***/
-
 // List of all students
 const studentNodeList = document.querySelectorAll('li');
 const pageContainer = document.querySelector('.page');
+
+// Constant for number of items per page (can be changed dynamically)
+const ITEMS_PER_PAGE = 10;
 
 
 /*** 
@@ -37,11 +28,25 @@ const pageContainer = document.querySelector('.page');
        "invoke" the function 
 ***/
 
-const showPage = () => {
-
+const showPage = (pageNumber) => {
+   const startIndex = calculateStartIndex(pageNumber);
+   const endIndex = startIndex + ITEMS_PER_PAGE;
+   for(let i = 0; i < studentNodeList.length; i++) {
+      if (i >= startIndex && i < endIndex) {
+         studentNodeList[i].style.display = '';
+      } else {
+         studentNodeList[i].style.display = 'none';
+      }
+   }
 }
 
+const calculateStartIndex = pageNumber => Number(pageNumber + 0) - ITEMS_PER_PAGE;
 
+const onInitialization = () => {
+   const activeButton = document.querySelector('a[class="active"');
+   const pageNumber = activeButton.innerText;
+   showPage(pageNumber);
+}
 
 
 /*** 
@@ -51,7 +56,7 @@ const showPage = () => {
 const appendPageLinks = () => {
    const divContainer = createElementWithClass('div', 'pagination')
    const ulContainer = document.createElement('ul');
-   const numOfPages = calculatePageNumbers(studentNodeList, 10);
+   const numOfPages = calculatePageNumbers(studentNodeList, ITEMS_PER_PAGE);
 
    for(let i = 1; i <= numOfPages; i++) {
       createAndAppend('li', 'a', i, '#', ulContainer)   
@@ -93,5 +98,7 @@ pagination.addEventListener('click', event => {
    const button = event.target;
    button.className = 'active'
    const pageNumber = button.innerText;
+   showPage(pageNumber);
 })
 pageContainer.appendChild(pagination);
+onInitialization();
