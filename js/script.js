@@ -37,6 +37,10 @@ const pageContainer = document.querySelector('.page');
        "invoke" the function 
 ***/
 
+const showPage = () => {
+
+}
+
 
 
 
@@ -79,4 +83,13 @@ const createElementWithClass = (elementName, className) => {
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
 const pagination = appendPageLinks();
+pagination.addEventListener('click', event => {
+   const anchorList = document.querySelectorAll('a'); // => 'href=#' selector need to be added
+   for(let i = 0; i < anchorList.length; i++) {
+      anchorList[i].className = '';
+   }
+   const button = event.target;
+   button.className = 'active'
+   const pageNumber = button.innerText;
+})
 pageContainer.appendChild(pagination);
