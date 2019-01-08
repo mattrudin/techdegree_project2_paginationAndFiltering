@@ -10,7 +10,7 @@ Global variables / constants
 const studentNodeList = document.querySelectorAll('li');
 const pageContainer = document.querySelector('.page');
 
-// Constant for number of items per page
+// Constant for number of items per page (can be changed for different number of items per page)
 // Naming convention comes from the Java programming language
 const ITEMS_PER_PAGE = 10;
 
@@ -39,7 +39,7 @@ const showPageWithItems = pageNumber => {
 }
 
 // The following function calculates the startindex
-const calculateStartIndex = pageNumber => Number(pageNumber + 0) - ITEMS_PER_PAGE;
+const calculateStartIndex = pageNumber => (pageNumber - 1) * ITEMS_PER_PAGE;
 
 
 
